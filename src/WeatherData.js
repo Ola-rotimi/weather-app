@@ -51,7 +51,7 @@ function WeatherData() {
   return (
     <div className="weather--data">
       <Weather location={location} weather={weather} />
-      <footer>&#169; olarotimi {(new Date()).getFullYear()}</footer>
+      <footer>&#169; Olarotimi {(new Date()).getFullYear()}</footer>
     </div>
   );
 }
