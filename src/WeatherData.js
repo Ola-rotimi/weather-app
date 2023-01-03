@@ -4,7 +4,6 @@ import Weather from "./components/Weather";
 function WeatherData() {
   const [weather, setWeather] = useState([]);
   const [location, setLocation] = useState([]);
-  const [loading, setloading] = useState(false);
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
 
@@ -21,12 +20,21 @@ function WeatherData() {
   );
 
   useEffect(() => {
-    setloading(true);
-    fetch('http://dev.virtualearth.net/REST/v1/locationrecog/'+lat+','+lon+'?key=AliNeAVhHUGHX5qi0lKiw9mlCnrSu7j5ZoJmqZjlSupFkNnuz2NdxB1e6O4ng12T&includeEntityTypes=address&output=json')
+    fetch(
+      "http://dev.virtualearth.net/REST/v1/locationrecog/" +
+        lat +
+        "," +
+        lon +
+        "?key=AliNeAVhHUGHX5qi0lKiw9mlCnrSu7j5ZoJmqZjlSupFkNnuz2NdxB1e6O4ng12T&includeEntityTypes=address&output=json"
+    )
       .then((response) => response.json())
       .then((data) => {
-        setLocation(data.resourceSets[0].resources[0].addressOfLocation[0].locality + ", " + data.resourceSets[0].resources[0].addressOfLocation[0].countryRegion);
-      })
+        setLocation(
+          data.resourceSets[0].resources[0].addressOfLocation[0].locality +
+            ", " +
+            data.resourceSets[0].resources[0].addressOfLocation[0].countryRegion
+        );
+      });
     fetch(
       "https://api.openweathermap.org/data/2.5/weather?lat=" +
         lat +
@@ -37,18 +45,15 @@ function WeatherData() {
       .then((response) => response.json())
       .then((data) => {
         setWeather([data.main, data.weather]);
-      })
+      });
   }, [lat, lon]);
 
-  if (loading) {
-    <h1>Getting current position...</h1>;
-  }
-
   return (
-    <div>
-        <Weather location={location} weather={weather} />
+    <div className="weather--data">
+      <Weather location={location} weather={weather} />
+      <footer>&#169; olarotimi {(new Date()).getFullYear()}</footer>
     </div>
-    );
+  );
 }
 
 export default WeatherData;
