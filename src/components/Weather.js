@@ -1,10 +1,10 @@
-import { IoLocationOutline } from "react-icons/io5";
+import { GrLocation } from "react-icons/gr";
 
 function Weather(prop) {
   return (
     <div className="weather">
       <p>
-        <IoLocationOutline />
+        <GrLocation />
         {prop.location}
       </p>
       <p>Today</p>
